@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- te  st  -->
+    <!-- test  -->
     <router-view />
   </div>
 </template>
