@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 
 
-//axios配置
+//axios 配  置
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
