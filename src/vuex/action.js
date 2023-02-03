@@ -13,7 +13,7 @@ export const loadWaterData = ({ commit }, data) => {
                 pagesize: data.pagesize,
             },
         };
-        axios.get("https://localhost:5001/api/Device/WaterGetData", Searth).then((res) => {
+        axios.get("https://localhost:44360/api/Device/WaterGetData", Searth).then((res) => {
             commit('SET_Water_INFO', res.data);
         });
     });
@@ -22,7 +22,7 @@ export const loadWaterData = ({ commit }, data) => {
 export const EditState = ({ commit }, data) => {
     return new Promise(() => {
         console.log(data);
-        axios.post(`https://localhost:5001/api/Device/EditState?id=${data}`).then((res) => {
+        axios.post(`https://localhost:44360/api/Device/EditState?id=${data}`).then((res) => {
             commit('SET_STATE_UPDATE', res.data);
         });
     });

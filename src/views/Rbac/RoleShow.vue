@@ -133,7 +133,7 @@ export default {
         },
       };
       this.axios
-        .get("https://localhost:5001/api/Role/GetData", token)
+        .get("https://localhost:44360/api/Role/GetData", token)
         .then((res) => {
           var data = res.data;
           if (data.Code == 200) {

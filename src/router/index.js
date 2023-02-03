@@ -26,6 +26,11 @@ const routes = [
         name: 'CustomerInfo',
         component: () => import('../views/Customer/CustomerInfo.vue')
       },
+      {
+        path: '/PersonCharge',// 联系人信息列表
+        name: 'PersonCharge',
+        component: () => import('../views/Customer/PersonCharge.vue')
+      },
       //#endregion
 
       //#region RBAC
@@ -56,13 +61,15 @@ const routes = [
       //#endregion
       
 
-      //#region 设备管理
+      //#region 字典管理
       {
-        path: '/dict', //水表
+        path: '/dict', //
         name: 'dict',
         component: () => import('../views/Rbac/DictView.vue')
       },
       //#endregion
+
+
     ]
   },
 

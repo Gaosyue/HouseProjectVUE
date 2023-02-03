@@ -1,23 +1,25 @@
 <template>
   <div id="app">
     <el-row>
-      <el-col :span="10"
+      <el-col :span="8"
         ><div class="grid-content bg-purple" style="float: left">
-          客户名称:<el-input
-            v-model="searth.name"
+          联系人姓名:<el-input
+            v-model="searth.pname"
             style="width: 300px"
           ></el-input></div
       ></el-col>
-      <el-col :span="10"><div class="grid-content bg-purple-light">
-        查询条件
-      </div></el-col>
-      <el-col :span="2"
+      <el-col :span="8"><div class="grid-content bg-purple-light">
+        客户名称:<el-input
+            v-model="searth.cname"
+            style="width: 300px"
+          ></el-input>
+        </div></el-col>
+      <el-col :span="4"
         ><div class="grid-content bg-purple"></div>
         <el-button type="primary" size="default" @click="GetAll()"
-          >查询</el-button
-        >
+          >查询</el-button>
       </el-col>
-      <el-col :span="2"
+      <el-col :span="4"
         ><div class="grid-content bg-purple-light">
           <el-button type="primary" size="default" @click="npoi()"
             >导出数据</el-button
@@ -45,7 +47,7 @@
                   <!--在这里配置他的数列-->
                   <el-row>
                     <el-col :span="24"><div class="grid-content bg-purple-dark">
-                      <el-checkbox v-model="showColumn.Number">编号</el-checkbox>
+                      <el-checkbox v-model="showColumn.CustomerId">客户编号</el-checkbox>
                     </div></el-col>
                   </el-row>
                   <el-row>
@@ -55,57 +57,32 @@
                   </el-row>
                   <el-row>
                     <el-col :span="24"><div class="grid-content bg-purple-dark">
-                      <el-checkbox v-model="showColumn.CompanyAddress">地址</el-checkbox>
+                      <el-checkbox v-model="showColumn.Name">联系人姓名</el-checkbox>
                     </div></el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="24"><div class="grid-content bg-purple-dark">
-                      <el-checkbox v-model="showColumn.Contacts">负责人</el-checkbox>
+                      <el-checkbox v-model="showColumn.Post">职务</el-checkbox>
                     </div></el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="24"><div class="grid-content bg-purple-dark">
-                  <el-checkbox v-model="showColumn.Telephone">电话</el-checkbox>
+                  <el-checkbox v-model="showColumn.Dep">部门</el-checkbox>
                     </div></el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="24"><div class="grid-content bg-purple-dark">
-                  <el-checkbox v-model="showColumn.BankAccount">银行账户</el-checkbox>
+                  <el-checkbox v-model="showColumn.Phone">电话</el-checkbox>
                     </div></el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="24"><div class="grid-content bg-purple-dark">
-                  <el-checkbox v-model="showColumn.BankName">所属银行</el-checkbox>
+                  <el-checkbox v-model="showColumn.Email">邮箱</el-checkbox>
                     </div></el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="24"><div class="grid-content bg-purple-dark">
-                  <el-checkbox v-model="showColumn.CustomerType">客户类型</el-checkbox>
-                    </div></el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="24"><div class="grid-content bg-purple-dark">
-                      <el-checkbox v-model="showColumn.Industry">所属行业</el-checkbox>
-                    </div></el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="24"><div class="grid-content bg-purple-dark">
-                      <el-checkbox v-model="showColumn.CreditRating">信用级别</el-checkbox>
-                    </div></el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="24"><div class="grid-content bg-purple-dark">
-                      <el-checkbox v-model="showColumn.EnterpriseCode">企业代码</el-checkbox>
-                    </div></el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="24"><div class="grid-content bg-purple-dark">
-                      <el-checkbox v-model="showColumn.TaxpayerNum">纳税人识别号</el-checkbox>
-                    </div></el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="24"><div class="grid-content bg-purple-dark">
-                      <el-checkbox v-model="showColumn.Representative">法定代表</el-checkbox>
+                  <el-checkbox v-model="showColumn.EntryTime">录入时间</el-checkbox>
                     </div></el-col>
                   </el-row>
                 </div>
@@ -126,10 +103,10 @@
       <el-table-column type="selection" width="55" v-if="showColumn.select" >
       </el-table-column>
       <el-table-column
-        prop="Number"
-        label="编号"
+        prop="CustomerId"
+        label="客户编号"
         width="140"
-        v-if="showColumn.Number"
+        v-if="showColumn.CustomerId"
       >
       </el-table-column>
       <el-table-column
@@ -140,83 +117,48 @@
       >
       </el-table-column>
       <el-table-column
-        prop="CompanyAddress"
-        label="地址"
+        prop="Name"
+        label="联系人姓名"
         width="220"
-        v-if="showColumn.CompanyAddress"
+        v-if="showColumn.Name"
       >
       </el-table-column>
       <el-table-column
-        prop="Contacts"
-        label="负责人"
+        prop="Post"
+        label="职务"
         width="90"
-        v-if="showColumn.Contacts"
+        v-if="showColumn.Post"
       >
       </el-table-column>
       <el-table-column
-        prop="Telephone"
-        label="电话"
+        prop="Dep"
+        label="部门"
         width="110"
-        v-if="showColumn.Telephone"
+        v-if="showColumn.Dep"
       >
       </el-table-column>
       <el-table-column
-        prop="BankAccount"
-        label="银行账户"
+        prop="Phone"
+        label="电话"
         width="180"
-        v-if="showColumn.BankAccount"
+        v-if="showColumn.Phone"
       >
       </el-table-column>
       <el-table-column
-        prop="BankName"
-        label="所属银行"
+        prop="Email"
+        label="邮箱"
         width="120"
-        v-if="showColumn.BankName"
+        v-if="showColumn.Email"
       >
       </el-table-column>
       <el-table-column
-        prop="CustomerType"
-        label="客户类型"
+        prop="EntryTime"
+        label="录入时间"
         width="120"
-        v-if="showColumn.CustomerType"
+        v-if="showColumn.EntryTime"
       >
       </el-table-column>
-      <el-table-column
-        prop="Industry"
-        label="所属行业"
-        width="120"
-        v-if="showColumn.Industry"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="CreditRating"
-        label="信用级别"
-        width="120"
-        v-if="showColumn.CreditRating"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="EnterpriseCode"
-        label="企业代码"
-        width="180"
-        v-if="showColumn.EnterpriseCode"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="TaxpayerNum"
-        label="纳税人识别号"
-        width="180"
-        v-if="showColumn.TaxpayerNum"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="Representative"
-        label="法人代表"
-        width="90"
-        v-if="showColumn.Representative"
-      >
-      </el-table-column>
-      
+    
       <el-table-column label="操作" width="100" align="center">
         <template #default="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small"
@@ -247,7 +189,8 @@ export default {
     return {
       showColumn:{},
       searth: {
-        name: "",
+        pname: "",
+        cname: "",
       },
       page: {
         pageindex: 1,
@@ -266,13 +209,14 @@ export default {
       this.showColumn = JSON.parse(localStorage.getItem("columnSet"));
     } else {
       this.showColumn = {
-        Number: true,
+        CustomerId: true,
         CustomerName: true,
-        Contacts: true,
-        Telephone: true,
-        EnterpriseCode: true,
-        TaxpayerNum: true,
-        Representative: true,
+        Name: true,
+        Post: false,
+        Dep: false,
+        Phone: true,
+        Email: true,
+        EntryTime:true
       };
     }
   },
@@ -300,7 +244,7 @@ export default {
     },
     GetAll() {
       this.axios(
-        "https://localhost:44360/api/Customerinfo/GetCust?name="+this.searth.name+"&pageindex="+this.page.pageindex+"&pagesize="+this.page.pagesize
+        "https://localhost:44360/api/Customerinfo/GetPersonChargeList?pname="+this.searth.pname+"&cname="+this.searth.cname+"&index="+this.page.pageindex+"&size="+this.page.pagesize
       ).then((res) => {
         if (res.data.Code == 200) {
           this.tableData = res.data.Data;

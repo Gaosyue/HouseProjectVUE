@@ -138,7 +138,7 @@ export default {
         },
       };
       this.axios
-        .get("https://localhost:5001/api/Personnel/GetData", token)
+        .get("https://localhost:44360/api/Personnel/GetData", token)
         .then((res) => {
           var data = res.data;
           if (data.Code == 200) {
@@ -168,7 +168,7 @@ export default {
     //修改滑块状态值
     EditState(val) {
       this.axios
-        .post(`https://localhost:5001/api/Personnel/EditState?id=${val}`)
+        .post(`https://localhost:44360/api/Personnel/EditState?id=${val}`)
         .then((res) => {
           var data = res.data;
           if (data == true) {
@@ -209,7 +209,7 @@ export default {
       })
         .then(() => {
           this.axios
-            .post("https://localhost:5001/api/Personnel/Delete", list)
+            .post("https://localhost:44360/api/Personnel/Delete", list)
             .then((res) => {
               var state = res.data;
               if (state == true) {
@@ -247,7 +247,7 @@ export default {
       })
         .then(() => {
           this.axios
-            .post("https://localhost:5001/api/Personnel/Delete", list)
+            .post("https://localhost:44360/api/Personnel/Delete", list)
             .then((res) => {
               var state = res.data;
               if (state == true) {

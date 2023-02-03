@@ -4,7 +4,7 @@
     <el-row>
       <el-col :span="12"
         ><div class="grid-content bg-purple">
-          <el-table :data="typelist" style="width: 100%" height="250">
+          <el-table :data="typelist" style="width: 100%" height="450">
             <el-table-column fixed prop="Id" label="字典编号" width="80">
             </el-table-column>
             <el-table-column prop="Name" label="字典类名" width="150">
@@ -19,13 +19,11 @@
                   >查看</el-button
                 >
                 <el-button type="primary" size="mini" @click="additem(scope.row.Id)">添加</el-button>
-                <el-button
+                <!-- <el-button
                   type="info"
                   size="mini"
-                  @click="dialogFormVisible = true"
-                  >修改</el-button
-                >
-                <el-button type="danger" size="mini">删除</el-button>
+                  @click="dialogFormVisible = true">修改</el-button> -->
+                <el-button type="danger" size="mini" @click="DelType(scope.row.Id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -34,23 +32,23 @@
       <el-col :span="2"> </el-col>
       <el-col :span="10"
         ><div class="grid-content bg-purple-light">
-          <el-table :data="itemlist" style="width: 100%" height="250">
+          <el-table :data="itemlist" style="width: 100%" height="450">
             <el-table-column fixed prop="Id" label="字典编号" width="80">
             </el-table-column>
             <el-table-column prop="ItemName" label="字典项名" width="150">
             </el-table-column>
             <el-table-column prop="city" label="操作">
               <template slot-scope="scope">
-                <el-button
+                <!-- <el-button
                   type="info"
                   size="mini"
                   @click="updItem(scope.row.Id)"
                   >修改</el-button
-                >
+                > -->
                 <el-button
                   type="danger"
                   size="mini"
-                  @click="updItem(scope.row.Id)"
+                  @click="DelItem(scope.row.Id)"
                   >删除</el-button
                 >
               </template>
@@ -132,6 +130,22 @@ export default {
     };
   },
   methods: {
+    DelType(id){
+      this.axios.delete("https://localhost:44360/api/Dict/DelType?id="+id).then(res=>{
+        if(res.data){
+          this.$message.success("删除成功!")
+          this.gettypelist();
+        }
+      })
+    },
+    DelItem(id){
+      this.axios.delete("https://localhost:44360/api/Dict/DelItem?id="+id).then(res=>{
+        if(res.data){
+          this.$message.success("删除成功!")
+          this.gettypelist();
+        }
+      })
+    },
     gettypelist() {
       this.axios("https://localhost:44360/api/Dict/GetDictTypeList").then(
         (res) => {
