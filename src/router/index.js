@@ -26,16 +26,6 @@ const routes = [
         name: 'CustomerInfo',
         component: () => import('../views/Customer/CustomerInfo.vue')
       },
-      {
-        path: '/CustomerView',// 联系人信息列表
-        name: 'CustomerView',
-        component: () => import('../views/Customer/CustomerView.vue')
-      },
-      {
-        path: '/ContractView',// 联系人信息列表
-        name: 'ContractView',
-        component: () => import('../views/Customer/ContractView.vue')
-      },
       //#endregion
 
       //#region RBAC
@@ -66,9 +56,9 @@ const routes = [
       //#endregion
       
 
-      //#region 设备管理
+      //#region 字典管理
       {
-        path: '/dict', //水表
+        path: '/dict', //
         name: 'dict',
         component: () => import('../views/Rbac/DictView.vue')
       },
