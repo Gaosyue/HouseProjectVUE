@@ -26,6 +26,21 @@ const routes = [
         name: 'CustomerInfo',
         component: () => import('../views/Customer/CustomerInfo.vue')
       },
+       {
+        path: '/CustomerView',// 客户信息列表
+        name: 'CustomerView',
+        component: () => import('../views/Customer/CustomerView.vue')
+      },
+       {
+        path: '/ContractView',// 客户信息列表
+        name: 'ContractView',
+        component: () => import('../views/Customer/ContractView.vue')
+      },
+      {
+        path: '/SubscriptionInfo',// 客户信息列表
+        name: 'SubscriptionInfo',
+        component: () => import('../views/Customer/SubscriptionInfo.vue')
+      },
       //#endregion
 
       //#region RBAC

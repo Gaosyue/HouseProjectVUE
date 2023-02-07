@@ -2,7 +2,7 @@
   <div>
     <h1>客户信息</h1>
 
-    <el-form ref="form" :model="form"  label-width="80px">
+    <el-form ref="form" :model="form" label-width="80px">
       <el-row :span="22">
         <el-col :span="11">
           <el-form-item label="编号" label-width="100px">
@@ -271,12 +271,10 @@ export default {
         UploadTime: "",
       },
       rules: {
-        name: [
-          { required: true, message: "必填项！", trigger: "blur" },
-        ],
+        name: [{ required: true, message: "必填项！", trigger: "blur" }],
         resource: [
           { required: true, message: "请选择活动资源", trigger: "change" },
-        ]
+        ],
       },
 
       dialogFormVisible: false,
@@ -333,33 +331,33 @@ export default {
       console.info(this.form);
       this.$refs.form.validate((valid) => {
         if (valid) {
+          this.axios
+            .post("https://localhost:44360/api/Customerinfo/CustAdd", this.form)
+            .then((result) => {
+              if (result.data) {
                 this.axios
-        .post("https://localhost:44360/api/Customerinfo/CustAdd", this.form)
-        .then((result) => {
-          if (result.data) {
-            this.axios
-              .post(
-                "https://localhost:44360/api/Customerinfo/PersonAdd",
-                this.tableData
-              )
-              .then((res) => {
-                if (res.data) {
-                  this.axios
-                    .post(
-                      "https://localhost:44360/api/Customerinfo/InsertFileInfo",
-                      this.filetable
-                    )
-                    .then((res) => {
-                      if (res.data) {
-                        this.$message.success("保存成功");
-                      }
-                    });
-                }
-              });
-          } else {
-            this.$message.error("添加失败");
-          }
-        });
+                  .post(
+                    "https://localhost:44360/api/Customerinfo/PersonAdd",
+                    this.tableData
+                  )
+                  .then((res) => {
+                    if (res.data) {
+                      this.axios
+                        .post(
+                          "https://localhost:44360/api/Customerinfo/InsertFileInfo",
+                          this.filetable
+                        )
+                        .then((res) => {
+                          if (res.data) {
+                            this.$message.success("保存成功");
+                          }
+                        });
+                    }
+                  });
+              } else {
+                this.$message.error("添加失败");
+              }
+            });
         } else {
           this.$message.error("请补全基础信息!");
           return false;

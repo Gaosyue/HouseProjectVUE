@@ -2,11 +2,11 @@
   <div>
     <h1>合同信息</h1>
 
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
       <el-row :span="22">
         <el-col :span="11">
-          <el-form-item label="合同编号" label-width="200px">
-            <el-input v-model="form.ContractId"></el-input>
+          <el-form-item label="合同编号" label-width="200px" prop="contractId">
+            <el-input v-model="form.ContractId" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="11">
@@ -17,12 +17,20 @@
       </el-row>
       <el-row :span="22">
         <el-col :span="11">
-          <el-form-item label="合同名称" label-width="200px">
+          <el-form-item
+            label="合同名称"
+            label-width="200px"
+            prop="contractName"
+          >
             <el-input v-model="form.ContractName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="11">
-          <el-form-item label="建设单位" label-width="200px">
+          <el-form-item
+            label="建设单位"
+            label-width="200px"
+            prop="constructionUnit"
+          >
             <el-input v-model="form.ConstructionUnit"></el-input>
           </el-form-item>
         </el-col>
@@ -70,7 +78,11 @@
           </el-form-item>
         </el-col>
         <el-col :span="11">
-          <el-form-item label="合同签约日期" label-width="200px">
+          <el-form-item
+            label="合同签约日期"
+            label-width="200px"
+            prop="signingDate"
+          >
             <el-date-picker
               v-model="form.SigningDate"
               type="datetime"
@@ -81,25 +93,138 @@
         </el-col>
       </el-row>
 
-      <h1>甲方负责人</h1>
-      <el-button type="text" @click="dialogFormVisible = true">添加</el-button>
+      <h1 style="text-align: left">客户信息</h1>
 
-      <el-dialog title="添加甲方负责人" :visible.sync="dialogFormVisible">
+      <el-form ref="form" :model="foom" label-width="80px">
+        <el-row>
+          <el-col :span="12"
+            ><div class="grid-content bg-purple">
+              <el-form-item label="客户名称">
+                <el-select
+                  v-model="foom.CustomerName"
+                  placeholder="请选择"
+                  @change="bindCustomer"
+                  style="width: 100%"
+                >
+                  <el-option
+                    v-for="item in custList"
+                    :key="item.Id"
+                    :label="item.CustomerName"
+                    :value="item.Number"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item></div
+          ></el-col>
+          <el-col :span="12"
+            ><div class="grid-content bg-purple-light">
+              <el-form-item label="客户编号">
+                <el-input v-model="foom.Number" disabled></el-input>
+              </el-form-item></div
+          ></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12"
+            ><div class="grid-content bg-purple">
+              <el-form-item label="客户名称">
+                <el-input v-model="foom.CustomerName" disabled></el-input>
+              </el-form-item></div
+          ></el-col>
+          <el-col :span="12"
+            ><div class="grid-content bg-purple-light">
+              <el-form-item label="公司地址">
+                <el-input v-model="foom.CompanyAddress" disabled></el-input>
+              </el-form-item></div
+          ></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12"
+            ><div class="grid-content bg-purple">
+              <el-form-item label="联系人">
+                <el-input v-model="foom.Contacts" disabled></el-input>
+              </el-form-item></div
+          ></el-col>
+          <el-col :span="12"
+            ><div class="grid-content bg-purple-light">
+              <el-form-item label="公司电话">
+                <el-input v-model="foom.Telephone" disabled></el-input>
+              </el-form-item></div
+          ></el-col>
+        </el-row>
+      </el-form>
+      <h1>合同签约信息</h1>
+      <el-button type="text" @click="dialogFormVisible = true">添加</el-button>
+      <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="AgreementName" label="协议名称" width="180">
+        </el-table-column>
+        <el-table-column prop="BuiltupArea" label="建筑面积"> </el-table-column>
+        <el-table-column prop="ActualAmount" label="实际合同额">
+        </el-table-column>
+        <el-table-column prop="ChargingStatus" label="收费状态">
+          <template slot-scope="scope">
+            <span v-if="scope.row.ChargingStatus">已结清</span>
+            <span v-else>未结清</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="Remarks" label="备注"> </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+              >编辑</el-button
+            >
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+              >删除</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <el-dialog title="添加合同签约信息" :visible.sync="dialogFormVisible">
         <el-form :model="fom">
-          <el-form-item label="姓名" :label-width="formLabelWidth">
-            <el-input v-model="fom.Name" autocomplete="off"></el-input>
+          <el-form-item
+            label="协议名称"
+            :label-width="formLabelWidth"
+            prop="name"
+          >
+            <el-input v-model="fom.AgreementName" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="职务" :label-width="formLabelWidth">
-            <el-input v-model="fom.Post" autocomplete="off"></el-input>
+          <el-form-item
+            label="建筑面积"
+            :label-width="formLabelWidth"
+            prop="name"
+          >
+            <el-input v-model="fom.BuiltupArea" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="部门" :label-width="formLabelWidth">
-            <el-input v-model="fom.Dep" autocomplete="off"></el-input>
+          <el-form-item
+            label="实际合同额"
+            :label-width="formLabelWidth"
+            prop="name"
+          >
+            <el-input v-model="fom.ActualAmount" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="电话" :label-width="formLabelWidth">
-            <el-input v-model="fom.Phone" autocomplete="off"></el-input>
+          <el-form-item
+            label="收费状态"
+            :label-width="formLabelWidth"
+            prop="name"
+          >
+            <el-radio
+              v-model="fom.ChargingStatus"
+              label="true"
+              autocomplete="off"
+              >已收费</el-radio
+            >
+            <el-radio
+              v-model="fom.ChargingStatus"
+              label="false"
+              autocomplete="off"
+              >未付费</el-radio
+            >
           </el-form-item>
-          <el-form-item label="Email" :label-width="formLabelWidth">
-            <el-input v-model="fom.Email" autocomplete="off"></el-input>
+          <el-form-item label="备注" :label-width="formLabelWidth" prop="name">
+            <el-input v-model="fom.Remarks" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -107,53 +232,7 @@
           <el-button type="primary" @click="add">确 定</el-button>
         </div>
       </el-dialog>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="DustomerId" label="序号" width="180">
-        </el-table-column>
-        <el-table-column prop="Name" label="姓名" width="180">
-        </el-table-column>
-        <el-table-column prop="Post" label="职务"> </el-table-column>
-        <el-table-column prop="Dep" label="部门"> </el-table-column>
-        <el-table-column prop="Phone" label="电话"> </el-table-column>
-        <el-table-column prop="Email" label="Email"> </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-              >编辑</el-button
-            >
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
 
-      <h1>附件</h1>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="FileName" label="文件名" width="180">
-        </el-table-column>
-        <el-table-column prop="UploadTime" label="上传时间" width="180">
-        </el-table-column>
-        <el-table-column prop="FileSize" label="文件大小"> </el-table-column>
-        <el-table-column prop="FileType" label="文件类型"> </el-table-column>
-        <el-table-column prop="Enteredby" label="用户"> </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-              >编辑</el-button
-            >
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
         <el-button>取消</el-button>
@@ -166,51 +245,123 @@
 export default {
   data() {
     return {
-      tableData: [],
+      tableData: [], //合同签约信息
+      custList: [], //客户信息
+      //合同信息
       form: {
+        ContractId: "", //合同编号
+        ContractNum: "",
+        ContractName: "",
+        ConstructionUnit: "",
+        ProjectLeader: "",
+        Phone: "",
+        FirstParty: "",
+        FirstPhone: "",
+        ProjectlLocation: "",
+        OriginalAmount: "",
+        ActualAmount: "",
+        SigningDate: "",
+        CustomerId: "",
+      },
+      //合同信息
+      fom: {
+        ContractId: "",
+        AgreementName: "",
+        BuiltupArea: "",
+        ActualAmount: "",
+        ChargingStatus: "true",
+        Remarks: "",
+      },
+      //客户信息
+      foom: {
         Number: "",
         CustomerName: "",
         CompanyAddress: "",
         Contacts: "",
         Telephone: "",
         BankAccount: "",
-        BankName: "",
-        EnterpriseCode: "",
-        CustomerType: "",
-        Industry: "",
-        CreditRating: "",
-        Representative: "",
-        TaxpayerNum: "",
-      },
-      fom: {
-        DustomerId: "",
-        Name: "",
-        Post: "",
-        Phone: "",
-        Dep: "",
-        Email: "",
       },
       dialogFormVisible: false,
       formLabelWidth: "120px",
+      rules: {
+        ContractName: [
+          { required: true, message: "合同名称", trigger: "blur" },
+        ],
+        constructionUnit: [
+          { required: true, message: "建设单位", trigger: "blur" },
+        ],
+        signingDate: [
+          {
+            type: "date",
+            required: true,
+            message: "请选择日期",
+            trigger: "change",
+          },
+        ],
+      },
     };
   },
   methods: {
     onSubmit() {
-      console.info(this.form);
+      this.form.CustomerId = this.foom.Number;
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.axios
+            .post(
+              "https://localhost:44360/api/ContractInfo/SubscrAdd",
+              this.form
+            )
+            .then((result) => {
+              if (result.data) {
+                this.axios
+                  .post(
+                    "https://localhost:44360/api/ContractInfo/InsertFileInfo",
+                    this.tableData
+                  )
+                  .then((result) => {
+                    if (result.data) {
+                      this.$message.success("保存成功");
+                    } else {
+                      this.$message.error("添加失败");
+                    }
+                  });
+              } else {
+                this.$message.error("请补全基础信息!");
+                return false;
+              }
+            });
+        } else {
+          this.$message.error("请补全基础信息!");
+          return false;
+        }
+      });
+    },
+    //绑定的下拉框
+    getCust() {
       this.axios
-        .post("https://localhost:44360/api/Customerinfo/CustAdd", this.form)
+        .get("https://localhost:44360/api/Customerinfo/Customer")
         .then((result) => {
-          if (result.data == true) {
-            this.$message.success("保存成功");
-          } else {
-            this.$message.error("添加失败");
-          }
+          this.custList = result.data.Data;
         });
     },
-
+    //获取详情
+    bindCustomer(val) {
+      this.axios
+        .get("https://localhost:44360/api/Customerinfo/GetCusr?number=" + val)
+        .then((result) => {
+          this.foom = result.data.Item;
+          console.log(this.foom);
+          console.log(result.data.Item);
+        });
+    },
+    //添加联系人到redis里
     add() {
+      this.fom.ContractId = this.form.ContractId;
       this.axios
-        .post("https://localhost:44360/api/Customerinfo/PersonAdd", this.fom)
+        .post(
+          "https://localhost:44360/api/ContractInfo/SubscriptionAddRedis",
+          this.fom
+        )
         .then((result) => {
           if (result.data == true) {
             this.$message.success("保存成功");
@@ -223,15 +374,32 @@ export default {
           }
         });
     },
+    //根据客户编号查询客户已经添加到redis里的联系人列表
     GetAll() {
       this.axios
-        .get("https://localhost:44360/api/Customerinfo/GetPerson")
+        .get(
+          "https://localhost:44360/api/ContractInfo/GetRedisSubscr?cusid=" +
+            this.form.ContractId
+        )
         .then((res) => {
           this.tableData = res.data;
         });
     },
+    //获取合同编号
+    getCodeNum() {
+      this.axios(
+        "https://localhost:44360/api/ContractInfo/GetDateTimeCode"
+      ).then((res) => {
+        this.form.ContractId = res.data;
+        this.fom.ContractId = res.data;
+      });
+    },
   },
-  created() {
+  //vue生命周期
+  created() {},
+  mounted() {
+    this.getCodeNum();
+    this.getCust();
     this.GetAll();
   },
 };
