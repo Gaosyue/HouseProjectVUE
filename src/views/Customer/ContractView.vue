@@ -29,7 +29,7 @@
           <el-form-item
             label="建设单位"
             label-width="200px"
-            prop="constructionUnit"
+            prop="ConstructionUnit"
           >
             <el-input v-model="form.ConstructionUnit"></el-input>
           </el-form-item>
@@ -42,7 +42,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="11">
-          <el-form-item label="工程负责人电话" label-width="200px">
+          <el-form-item label="工程负责人电话" label-width="200px" prop="Phone">
             <el-input v-model="form.Phone"></el-input>
           </el-form-item>
         </el-col>
@@ -81,7 +81,7 @@
           <el-form-item
             label="合同签约日期"
             label-width="200px"
-            prop="signingDate"
+            prop="SigningDate"
           >
             <el-date-picker
               v-model="form.SigningDate"
@@ -287,10 +287,22 @@ export default {
         ContractName: [
           { required: true, message: "合同名称", trigger: "blur" },
         ],
-        constructionUnit: [
+        ConstructionUnit: [
           { required: true, message: "建设单位", trigger: "blur" },
         ],
-        signingDate: [
+        Phone: [
+          {
+            required: true,
+            message: "手机号不能为空",
+            trigger: "blur",
+          },
+          {
+            pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
+            message: "请输入正确的手机号码",
+            trigger: "blur",
+          },
+        ],
+        SigningDate: [
           {
             type: "date",
             required: true,

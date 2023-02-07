@@ -41,6 +41,11 @@ const routes = [
         name: 'SubscriptionInfo',
         component: () => import('../views/Customer/SubscriptionInfo.vue')
       },
+      {
+        path: '/ContractInfo',// 合同信息列表
+        name: 'ContractInfo',
+        component: () => import('../views/Customer/ContractInfo.vue')
+      },
       //#endregion
 
       //#region RBAC
