@@ -83,6 +83,14 @@ const routes = [
         component: () => import('../views/Rbac/DictView.vue')
       },
       //#endregion
+
+      //#region 字典管理
+      {
+        path: '/PersonCharge', //
+        name: 'PersonCharge',
+        component: () => import('../views/Customer/PersonCharge.vue')
+      },
+      //#endregion
     ]
   },
 
