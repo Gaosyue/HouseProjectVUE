@@ -49,12 +49,20 @@
       </el-row>
       <el-row :span="22">
         <el-col :span="11">
-          <el-form-item label="甲方负责人" label-width="200px">
+          <el-form-item
+            label="甲方负责人"
+            label-width="200px"
+            prop="FirstParty"
+          >
             <el-input v-model="form.FirstParty"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="11">
-          <el-form-item label="甲方负责人电话" label-width="200px">
+          <el-form-item
+            label="甲方负责人电话"
+            label-width="200px"
+            prop="FirstPhone"
+          >
             <el-input v-model="form.FirstPhone"></el-input>
           </el-form-item>
         </el-col>
@@ -66,14 +74,22 @@
           </el-form-item>
         </el-col>
         <el-col :span="11">
-          <el-form-item label="原始合同额" label-width="200px">
+          <el-form-item
+            label="原始合同额"
+            label-width="200px"
+            prop="OriginalAmount"
+          >
             <el-input v-model="form.OriginalAmount"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :span="22">
         <el-col :span="11">
-          <el-form-item label="实际合同额" label-width="200px">
+          <el-form-item
+            label="实际合同额"
+            label-width="200px"
+            prop="ActualAmount"
+          >
             <el-input v-model="form.ActualAmount"></el-input>
           </el-form-item>
         </el-col>
@@ -285,12 +301,43 @@ export default {
       formLabelWidth: "120px",
       rules: {
         ContractName: [
-          { required: true, message: "合同名称", trigger: "blur" },
+          { required: true, message: "合同名称不能为空", trigger: "blur" },
         ],
         ConstructionUnit: [
-          { required: true, message: "建设单位", trigger: "blur" },
+          { required: true, message: "建设单位不能为空", trigger: "blur" },
+        ],
+        FirstParty: [
+          { required: true, message: "甲方负责人不能为空", trigger: "blur" },
+        ],
+        OriginalAmount: [
+          { required: true, trigger: "blur", message: "金额不能为空" },
+          {
+            pattern:
+              /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
+            message: "请输入正确额格式,可保留两位小数",
+          },
+        ],
+        ActualAmount: [
+          { required: true, trigger: "blur", message: "金额不能为空" },
+          {
+            pattern:
+              /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
+            message: "请输入正确额格式,可保留两位小数",
+          },
         ],
         Phone: [
+          {
+            required: true,
+            message: "手机号不能为空",
+            trigger: "blur",
+          },
+          {
+            pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
+            message: "请输入正确的手机号码",
+            trigger: "blur",
+          },
+        ],
+        FirstPhone: [
           {
             required: true,
             message: "手机号不能为空",
@@ -333,6 +380,7 @@ export default {
                   .then((result) => {
                     if (result.data) {
                       this.$message.success("保存成功");
+                      this.$router.push("/ContractInfo");
                     } else {
                       this.$message.error("添加失败");
                     }

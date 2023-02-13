@@ -46,6 +46,16 @@ const routes = [
         name: 'ContractInfo',
         component: () => import('../views/Customer/ContractInfo.vue')
       },
+      {
+        path: '/PotraInfo',// 合同信息列表
+        name: 'PotraInfo',
+        component: () => import('../views/Customer/PotraInfo.vue')
+      },
+       {
+        path: '/ProtraView',// 合同信息列表
+        name: 'ProtraView',
+        component: () => import('../views/Customer/ProtraView.vue')
+      },
       //#endregion
 
       //#region RBAC

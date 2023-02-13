@@ -37,6 +37,9 @@
       <el-table-column prop="Email" label="Email" width="180">
       </el-table-column>
       <el-table-column prop="EntryTime" label="录入时间" width="180">
+        <template slot-scope="scope">
+          {{ scope.row.EntryTime.substring(0, 10) }}
+        </template>
       </el-table-column>
       <el-table-column label="客户">
         <el-button size="mini" @click="Jump">查看</el-button>
@@ -52,7 +55,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :page-sizes="[10, 20, 30, 40]"
+      :page-sizes="[5, 10, 15, 20]"
       :page-size="page.pagesize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="page.total"
@@ -68,9 +71,9 @@ export default {
       tableData: [],
       page: {
         pageindex: 1,
-        pagedata: 10,
+        pagesize: 10,
+        count: 0,
         total: 0,
-        totalpage: 0,
       },
       formInline: {
         name: "",
@@ -87,7 +90,7 @@ export default {
           entrytime: this.formInline.entrytime,
           endtime: this.formInline.endtime,
           pageindex: this.page.pageindex,
-          pagesize: this.page.pagedata,
+          pagesize: this.page.pagesize,
         },
       };
       this.axios
@@ -98,16 +101,18 @@ export default {
             this.tableData = [];
             this.tableData = data.Data;
 
-            this.page.total = data.PageCount;
-            this.page.totalpage = data.PageSize;
+            this.page.count = data.PageCount;
+            this.page.total = data.DataCount;
           }
         });
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.page.pagesize = val;
+      this.onSubmit();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      this.page.pageindex = val;
+      this.onSubmit();
     },
     Jump() {
       this.$router.push("/CustomerEntry");
