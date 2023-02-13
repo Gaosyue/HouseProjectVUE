@@ -110,14 +110,6 @@ const routes = [
 
       //#region 合同录入
       {
-        path: '/ApplicationInsert', //
-        name: 'ApplicationInsert',
-        component: () => import('../views/Application/ApplicationInsert.vue')
-      },
-      //#endregion
-
-      //#region 合同录入
-      {
         path: '/LeaveList', //
         name: 'LeaveList',
         component: () => import('../views/Application/LeaveList.vue')
