@@ -115,6 +115,14 @@ const routes = [
         component: () => import('../views/Application/ApplicationInsert.vue')
       },
       //#endregion
+
+      //#region 合同录入
+      {
+        path: '/LeaveList', //
+        name: 'LeaveList',
+        component: () => import('../views/Application/LeaveList.vue')
+      },
+      //#endregion
     ]
   },
 
