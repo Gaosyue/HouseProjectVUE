@@ -91,6 +91,30 @@ const routes = [
         component: () => import('../views/Customer/PersonCharge.vue')
       },
       //#endregion
+
+      //#region 合同管理
+      {
+        path: '/ContractInfo', //
+        name: 'ContractInfo',
+        component: () => import('../views/Customer/ContractInfo.vue')
+      },
+      //#endregion
+
+      //#region 合同录入
+      {
+        path: '/ContractView', //
+        name: 'ContractView',
+        component: () => import('../views/Customer/ContractView.vue')
+      },
+      //#endregion
+
+      //#region 合同录入
+      {
+        path: '/ApplicationInsert', //
+        name: 'ApplicationInsert',
+        component: () => import('../views/Application/ApplicationInsert.vue')
+      },
+      //#endregion
     ]
   },
 
