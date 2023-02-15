@@ -56,6 +56,21 @@ const routes = [
         name: 'ProtraView',
         component: () => import('../views/Customer/ProtraView.vue')
       },
+      {
+        path: '/NoticeInfo',// 合同信息列表
+        name: 'NoticeInfo',
+        component: () => import('../views/Customer/NoticeInfo.vue')
+      },
+      {
+        path: '/LoginLog',// 登录日志
+        name: 'LoginLog',
+        component: () => import('../views/Customer/LoginLog.vue')
+      },
+        {
+        path: '/AssesMest',// 登录日志
+        name: 'AssesMest',
+        component: () => import('../views/Customer/AssesMest.vue')
+      },
       //#endregion
 
       //#region RBAC
@@ -82,6 +97,11 @@ const routes = [
         path: '/watercost', //水表
         name: 'watercost',
         component: () => import('../views/DeviceManagement/WaterCost.vue')
+      },
+       {
+        path: '/ElectricCost', //水表
+        name: 'ElectricCost',
+        component: () => import('../views/DeviceManagement/ElectricCost.vue')
       },
       //#endregion
       

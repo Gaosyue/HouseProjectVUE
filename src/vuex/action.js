@@ -47,3 +47,51 @@ export const ObtainSecondSelect = ({ commit }, data) => {
     });
 };
 
+
+
+// 获取水表数据
+export const loadElectData = ({ commit }, data) => {
+    return new Promise(() => {
+        var Searth = {
+            params: {
+                building: data.building,
+                unitnum: data.unitnum,
+                state: data.state,
+                pageindex: data.pageindex,
+                pagesize: data.pagesize,
+            },
+        };
+        axios.get("https://localhost:44360/api/Device/ElectrGetData", Searth).then((res) => {
+            commit('SET_Elect_INFO', res.data);
+        });
+    });
+};
+// 获取水表数据
+export const ElectditState = ({ commit }, data) => {
+    return new Promise(() => {
+        console.log(data);
+        axios.post(`https://localhost:44360/api/Device/EditState?id=${data}`).then((res) => {
+            commit('SET_Elect_UPDATE', res.data);
+        });
+    });
+};
+
+//获取下拉的数据
+export const EbtainSelect = ({ commit }, data) => {
+    return new Promise(() => {
+
+        axios.get(data).then((res) => {
+            commit('SET_Elect_ITEM', res.data);
+        });
+    });
+};
+
+//获取第二个下拉的数据
+export const EbtainSecondSelect = ({ commit }, data) => {
+    return new Promise(() => {
+        console.log(data);
+        axios.get(data).then((res) => {
+            commit('SET_ECOND_ITEM', res.data);
+        });
+    });
+};
