@@ -28,7 +28,7 @@
       </el-header>
       <el-container>
         <el-aside :width="isCollapse ? '49px' : ' 199px'">
-          <div class="toggle-button" @click="toggleCollapse">///</div>
+          <div class="toggle-button" @click="toggleCollapse">|||</div>
           <!--左侧菜单栏显示-->
           <el-menu
             default-active="1"
