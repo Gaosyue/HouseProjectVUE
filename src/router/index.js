@@ -142,12 +142,20 @@ const routes = [
         component: () => import('../views/Customer/ContractView.vue')
       },
       //#endregion
-
+      
       //#region 合同录入
       {
         path: '/LeaveList', //
         name: 'LeaveList',
         component: () => import('../views/Application/LeaveList.vue')
+      },
+      //#endregion
+
+      //#region 合同录入
+      {
+        path: '/OutworkList', //
+        name: 'OutworkList',
+        component: () => import('../views/Application/OutworkList.vue')
       },
       //#endregion
     ]
