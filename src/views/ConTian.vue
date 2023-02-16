@@ -27,7 +27,8 @@
         <!--表头结束-->
       </el-header>
       <el-container>
-        <el-aside width="275px">
+        <el-aside :width="isCollapse ? '49px' : ' 199px'">
+          <div class="toggle-button" @click="toggleCollapse">///</div>
           <!--左侧菜单栏显示-->
           <el-menu
             default-active="1"
@@ -113,6 +114,7 @@ export default {
     return {
       list: [],
       HeadIcon: "",
+      isCollapse: false,
     };
   },
   methods: {
@@ -131,6 +133,9 @@ export default {
     },
     Back() {
       this.$router.push("/ConTian");
+    },
+    toggleCollapse() {
+      this.isCollapse = !this.isCollapse;
     },
   },
   created() {
@@ -176,5 +181,14 @@ body > .el-container {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
+}
+.toggle-button {
+  background-color: #4a5064;
+  font-size: 10px;
+  line-height: 24px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.2em;
+  cursor: pointer;
 }
 </style>
