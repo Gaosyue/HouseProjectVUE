@@ -71,6 +71,11 @@ const routes = [
         name: 'AssesMest',
         component: () => import('../views/Customer/AssesMest.vue')
       },
+      {
+        path: '/NoView',// 登录日志
+        name: 'NoView',
+        component: () => import('../views/Customer/NoView.vue')
+      },
       //#endregion
 
       //#region RBAC

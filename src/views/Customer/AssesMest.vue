@@ -1,12 +1,11 @@
 <template>
   <div>
     <el-row>
-      <!-- 左上角 -->
       <el-col :span="16"
         ><div class="grid-content bg-purple">
           <el-card class="box-card">
             <div>
-              <div style="color: blue">
+              <div>
                 <span style="float: left">考核列表</span>
                 <el-button
                   style="float: right"
@@ -94,7 +93,7 @@
         ><div class="grid-content bg-purple-light">
           <el-card class="box-card">
             <div>
-              <div style="color: blue">
+              <div>
                 <span style="float: left">任务编辑</span>
                 <br /><br /><br /><br />
               </div>

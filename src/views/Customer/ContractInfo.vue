@@ -10,6 +10,9 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
         <el-button type="primary" @click="add">添加</el-button>
+        <el-button type="success" icon="el-icon-loading" @click="expor"
+          >导出</el-button
+        >
       </el-form-item>
     </el-form>
     <el-table :data="tableData" style="width: 100%">
@@ -298,6 +301,15 @@ export default {
     },
     add() {
       this.$router.push("/ContractView");
+    },
+    expor() {
+      this.axios
+        .get("https://localhost:44360/api/ContractInfo/PersonNpoiExportExcel")
+        .then((result) => {
+          if (result.data) {
+            this.$message.success("成功");
+          }
+        });
     },
   },
   created() {
